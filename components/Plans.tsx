@@ -9,7 +9,7 @@ const plans = [
     note: 'por mês · acesso via Kiwify',
     featured: false,
     cta: 'Assinar Mensal',
-    link: '#',
+    link: 'https://pay.kiwify.com.br/VJItdsy',
     features: [
       'Acesso a todos os PSDs via Kiwify',
       'Novos arquivos toda semana no Drive',
@@ -27,7 +27,7 @@ const plans = [
     note: 'pagamento único · equivale a R$16,41/mês',
     featured: true,
     cta: 'Garantir Acesso Anual',
-    link: '#',
+    link: 'https://pay.kiwify.com.br/JleoMKc',
     features: [
       'Acesso completo a todos os PSDs via Kiwify',
       'Novos arquivos toda semana no Drive',

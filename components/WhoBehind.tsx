@@ -12,7 +12,7 @@ export default function WhoBehind() {
             src="/matheus-foto.jpg"
             alt="Matheus Ressil"
             fill
-            style={{ objectFit: 'cover', objectPosition: 'center top' }}
+            style={{ objectFit: 'cover', objectPosition: 'center 15%' }}
           />
           <div className="sobre-photo-fade" />
           {/* Badge over photo */}
@@ -266,14 +266,14 @@ export default function WhoBehind() {
 
         @media (max-width: 960px) {
           .sobre-section { grid-template-columns: 1fr; }
-          .sobre-photo { min-height: 60vw; max-height: 80vw; overflow: hidden; }
+          .sobre-photo { height: 75vw; min-height: unset; max-height: unset; overflow: hidden; }
           .sobre-photo-fade { background: linear-gradient(0deg, var(--dark) 0%, transparent 55%); }
           .sobre-content { padding: 48px 32px 72px; }
           .sobre-bg-name { display: none; }
           .sobre-photo-badge { bottom: 28px; left: 24px; font-size: 11px; }
         }
         @media (max-width: 560px) {
-          .sobre-photo { min-height: 72vw; }
+          .sobre-photo { height: 90vw; }
           .sobre-content { padding: 36px 20px 64px; }
           .sobre-styles { gap: 4px; }
           .sobre-stats { gap: 24px; }

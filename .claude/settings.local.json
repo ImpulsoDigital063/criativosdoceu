@@ -10,7 +10,10 @@
       "WebFetch(domain:elements.envato.com)",
       "WebFetch(domain:www.storyblocks.com)",
       "WebSearch",
-      "WebFetch(domain:kitdodesignergospelpro.com.br)"
+      "WebFetch(domain:kitdodesignergospelpro.com.br)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)"
     ]
   }
 }
