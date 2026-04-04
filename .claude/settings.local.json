@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "WebFetch(domain:criativosdoceu.com)",
+      "WebFetch(domain:www.designcuts.com)",
+      "WebFetch(domain:creativemarket.com)",
+      "WebFetch(domain:motionarray.com)",
+      "WebFetch(domain:www.envato.com)",
+      "WebFetch(domain:elements.envato.com)",
+      "WebFetch(domain:www.storyblocks.com)",
+      "WebSearch",
+      "WebFetch(domain:kitdodesignergospelpro.com.br)"
+    ]
+  }
+}
