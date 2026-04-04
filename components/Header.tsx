@@ -77,7 +77,7 @@ export default function Header() {
       <div
         className={`nav-drawer${open ? ' is-open' : ''}`}
         aria-hidden={!open}
-        inert={!open ? '' : undefined}
+        inert={!open || undefined}
       >
         <div className="nd-inner">
           <div className="nd-links">
