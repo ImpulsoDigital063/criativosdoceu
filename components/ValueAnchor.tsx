@@ -10,38 +10,38 @@ export default function ValueAnchor() {
           <div className="va-left" data-reveal="left">
             <p className="va-lbl">
               <span className="va-lbl-bar" />
-              Compare e decida
+              Para quem cria
             </p>
             <h2 className="va-title">
-              Quanto custa<br />
-              <span className="va-title-red">não ter</span><br />
-              <span className="va-title-outline">isso?</span>
+              Do conceito<br />
+              à arte final.<br />
+              <span className="va-title-gold">Mais rápido.</span>
             </h2>
             <p className="va-desc">
-              Cada arte que sua igreja publica sem qualidade profissional é uma oportunidade perdida.
+              Seja você parte da equipe da igreja ou o designer que a atende — o pack coloca nas suas mãos os PSDs, texturas e recursos que transformam horas de trabalho em minutos de criação.
             </p>
           </div>
 
           <div className="va-right" data-reveal="right" data-delay="150">
 
-            {/* "Eles" — designer options */}
+            {/* Sem o pack */}
             <div className="va-block va-block-bad">
               <div className="va-block-label">
                 <span className="va-block-dot va-dot-red" />
-                Contratar designer
+                Sem o pack
               </div>
               <div className="va-rows">
                 <div className="va-row">
-                  <span className="va-row-label">1 arte avulsa</span>
-                  <span className="va-row-val va-val-muted">R$150–300</span>
+                  <span className="va-row-label">Horas construindo elementos do zero</span>
                 </div>
                 <div className="va-row">
-                  <span className="va-row-label">4 artes por mês</span>
-                  <span className="va-row-val va-val-muted">R$600–1.200<span className="va-per">/mês</span></span>
+                  <span className="va-row-label">Recursos genéricos que limitam o resultado</span>
                 </div>
                 <div className="va-row">
-                  <span className="va-row-label">12 meses</span>
-                  <span className="va-row-val va-val-muted">R$7.200–14.400<span className="va-per">/ano</span></span>
+                  <span className="va-row-label">Cada estilo novo, um projeto do zero</span>
+                </div>
+                <div className="va-row">
+                  <span className="va-row-label">Consistência visual difícil de manter</span>
                 </div>
               </div>
             </div>
@@ -53,29 +53,29 @@ export default function ValueAnchor() {
               <div className="va-vs-line" />
             </div>
 
-            {/* "Ressil" — gold options */}
+            {/* Com o pack */}
             <div className="va-block va-block-good">
               <div className="va-block-glow" />
               <div className="va-block-label va-label-gold">
                 <span className="va-block-dot va-dot-gold" />
-                Pack Ressil Design
+                Com o pack
               </div>
               <div className="va-rows">
                 <div className="va-row">
-                  <span className="va-row-label">Plano mensal</span>
-                  <span className="va-row-val va-val-gold">
-                    R$37<span className="va-cts">,90</span><span className="va-per">/mês</span>
-                  </span>
+                  <span className="va-row-label va-label-light">PSDs prontos para editar e entregar</span>
+                  <span className="va-row-icon">✦</span>
                 </div>
                 <div className="va-row">
-                  <span className="va-row-label">Plano anual</span>
-                  <span className="va-row-val va-val-gold">
-                    R$16<span className="va-cts">,41</span><span className="va-per">/mês</span>
-                  </span>
+                  <span className="va-row-label va-label-light">Texturas, LUTs e fundos cinematográficos inclusos</span>
+                  <span className="va-row-icon">✦</span>
+                </div>
+                <div className="va-row">
+                  <span className="va-row-label va-label-light">Jovens · Feminino · Infantil · Editorial · Missões</span>
+                  <span className="va-row-icon">✦</span>
                 </div>
                 <div className="va-row va-row-highlight">
-                  <span className="va-row-label va-label-strong">Artes ilimitadas incluídas</span>
-                  <span className="va-row-val va-val-gold va-val-big">∞</span>
+                  <span className="va-row-label va-label-strong">Identidade visual consistente em todos os momentos</span>
+                  <span className="va-row-icon va-icon-gold">✦</span>
                 </div>
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function ValueAnchor() {
 
         <div className="va-note-bar">
           <span className="va-note-icon">✦</span>
-          Com o plano anual você economiza <strong>mais de R$14.000/ano</strong> em relação a contratar um designer para 4 artes por mês.
+          Mais tempo criando. Menos tempo construindo. <strong>O mesmo talento, entregando muito mais.</strong>
           <span className="va-note-icon">✦</span>
         </div>
 
@@ -130,11 +130,7 @@ export default function ValueAnchor() {
           color: var(--white);
           margin-bottom: 24px;
         }
-        .va-title-red { color: var(--crimson); }
-        .va-title-outline {
-          color: transparent;
-          -webkit-text-stroke: 2px rgba(255,255,255,0.2);
-        }
+        .va-title-gold { color: var(--gold); }
         .va-desc {
           font-size: 14px; line-height: 1.85;
           color: rgba(255,255,255,0.35);
@@ -190,23 +186,27 @@ export default function ValueAnchor() {
           display: flex; justify-content: space-between; align-items: center;
           padding: 12px 0;
           border-bottom: 1px solid rgba(255,255,255,0.04);
+          gap: 12px;
         }
         .va-row:last-child { border-bottom: none; }
         .va-row-highlight { background: rgba(200,164,74,0.03); padding: 12px 8px; border-radius: 2px; }
 
         .va-row-label {
-          font-size: 13px; color: rgba(255,255,255,0.45);
+          font-size: 13px; color: rgba(255,255,255,0.35);
+          line-height: 1.5;
         }
-        .va-label-strong { color: rgba(255,255,255,0.7); font-weight: 500; }
-        .va-row-val {
-          font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
-          font-size: 24px; line-height: 1;
+        .va-label-light { color: rgba(255,255,255,0.55); }
+        .va-label-strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+        .va-row-icon {
+          font-size: 7px;
+          color: rgba(200,164,74,0.25);
+          flex-shrink: 0;
         }
-        .va-val-muted { color: rgba(255,255,255,0.2); }
-        .va-val-gold { color: var(--gold); }
-        .va-val-big { font-size: 40px; filter: drop-shadow(0 0 10px rgba(200,164,74,0.4)); }
-        .va-cts { font-size: 16px; }
-        .va-per { font-family: var(--font-inter), sans-serif; font-size: 10px; letter-spacing: 1px; opacity: 0.7; margin-left: 2px; }
+        .va-icon-gold {
+          color: rgba(200,164,74,0.6);
+          filter: drop-shadow(0 0 6px rgba(200,164,74,0.4));
+        }
 
         /* VS */
         .va-vs {
@@ -243,8 +243,7 @@ export default function ValueAnchor() {
           .va-title { font-size: clamp(48px, 8vw, 80px); }
         }
         @media (max-width: 640px) {
-          .va-row-val { font-size: 20px; }
-          .va-val-big { font-size: 32px; }
+          .va-row-label { font-size: 12px; }
           .va-block { padding: 24px 20px; }
           .va-vs { padding: 0 20px; }
         }
@@ -252,7 +251,6 @@ export default function ValueAnchor() {
           .va-inner { padding: 0 20px 72px; }
           .va-note-bar { padding: 20px; flex-wrap: wrap; font-size: 12px; }
           .va-note-icon { display: none; }
-          .va-row-label { font-size: 12px; }
         }
       `}</style>
     </>
