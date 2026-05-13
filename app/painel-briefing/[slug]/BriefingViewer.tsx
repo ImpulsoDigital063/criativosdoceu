@@ -5,10 +5,9 @@ import { browserSupabase, type BriefingRow } from "@/lib/supabase";
 
 const TOTAL_STEPS = 10;
 
-const BLOCOS: Array<{ titulo: string; emoji: string; campos: Array<[string, string]> }> = [
+const BLOCOS: Array<{ titulo: string; campos: Array<[string, string]> }> = [
   {
     titulo: "Boas-vindas",
-    emoji: "✦",
     campos: [
       ["nome", "Nome"],
       ["whatsapp", "WhatsApp"],
@@ -18,7 +17,6 @@ const BLOCOS: Array<{ titulo: string; emoji: string; campos: Array<[string, stri
   },
   {
     titulo: "Identidade + Hero",
-    emoji: "🎯",
     campos: [
       ["apresentacao", "Como ser apresentado"],
       ["apresentacaoOutro", "Apresentação · outro"],
@@ -33,16 +31,18 @@ const BLOCOS: Array<{ titulo: string; emoji: string; campos: Array<[string, stri
   },
   {
     titulo: "Posicionamento estético",
-    emoji: "🎨",
     campos: [
       ["posicionamentoEstetico", "Posicionamento"],
       ["posicionamentoOutro", "Posicionamento · outro"],
       ["referenciasMarca", "Referências de marca"],
+      ["visualLP", "Visual da LP"],
+      ["visualLPOutro", "Visual · outro"],
+      ["logoDecisao", "Logo da marca"],
+      ["logoDecisaoOutro", "Logo · outro"],
     ],
   },
   {
     titulo: "Estilos + Categorias",
-    emoji: "📐",
     campos: [
       ["estilos", "Estilos confirmados"],
       ["estiloOutro", "Estilo · outro"],
@@ -53,7 +53,6 @@ const BLOCOS: Array<{ titulo: string; emoji: string; campos: Array<[string, stri
   },
   {
     titulo: "Portfolio",
-    emoji: "🖼",
     campos: [
       ["psdHistoricos", "Histórico das 15 peças"],
       ["galeriaDecisao", "Decisão galeria"],
@@ -62,7 +61,6 @@ const BLOCOS: Array<{ titulo: string; emoji: string; campos: Array<[string, stri
   },
   {
     titulo: "Modelo de entrega",
-    emoji: "📦",
     campos: [
       ["volumeSemanal", "Volume semanal"],
       ["formatosPorPSD", "Formatos por PSD"],
@@ -79,7 +77,6 @@ const BLOCOS: Array<{ titulo: string; emoji: string; campos: Array<[string, stri
   },
   {
     titulo: "Preço",
-    emoji: "💰",
     campos: [
       ["precoEscolha", "Estratégia de preço"],
       ["precoOutro", "Preço · outro"],
@@ -89,7 +86,6 @@ const BLOCOS: Array<{ titulo: string; emoji: string; campos: Array<[string, stri
   },
   {
     titulo: "Prova social + Lançamento",
-    emoji: "🚀",
     campos: [
       ["provaSocialDecisao", "Decisão prova social"],
       ["depoimentosCandidatos", "Candidatos a depoimento"],
@@ -114,14 +110,12 @@ const BLOCOS: Array<{ titulo: string; emoji: string; campos: Array<[string, stri
   },
   {
     titulo: "Tamanho da oportunidade",
-    emoji: "📊",
     campos: [
       ["reacaoDados", "Reação aos dados"],
     ],
   },
   {
     titulo: "Co-criação",
-    emoji: "💎",
     campos: [
       ["sonhoReal", "Sonho real"],
       ["faltando", "O que tá faltando"],
@@ -187,9 +181,9 @@ export default function BriefingViewer({
         <p className="bv-empty-title">Briefing &quot;{slug}&quot; ainda não iniciado</p>
         <p className="bv-empty-sub">Quando o cliente abrir o link e responder a primeira pergunta, ele aparece aqui em tempo real.</p>
         <style>{`
-          .bv-empty { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 48px 32px; text-align: center; color: var(--white); }
-          .bv-empty-title { font-family: var(--font-bebas), sans-serif; font-size: 22px; letter-spacing: 1px; margin-bottom: 8px; }
-          .bv-empty-sub { font-size: 13px; color: rgba(255,255,255,0.4); }
+          .bv-empty { background: #fff; border: 1px solid var(--bf-border); padding: 48px 32px; text-align: center; color: var(--bf-text); }
+          .bv-empty-title { font-family: var(--font-bebas), sans-serif; font-size: 22px; letter-spacing: 0.04em; margin-bottom: 8px; }
+          .bv-empty-sub { font-size: 13px; color: var(--bf-text-soft); }
         `}</style>
       </div>
     );
@@ -210,7 +204,7 @@ export default function BriefingViewer({
           <div className="bv-tags">
             {pulse && <span className="bv-pulse">⚡ atualizado agora</span>}
             <span className={`bv-status ${briefing.status === "completed" ? "bv-status-done" : "bv-status-draft"}`}>
-              {briefing.status === "completed" ? "✦ enviado" : "📝 rascunho"}
+              {briefing.status === "completed" ? "✦ enviado" : "rascunho"}
             </span>
           </div>
         </div>
@@ -231,10 +225,10 @@ export default function BriefingViewer({
         const hasAny = filled > 0;
 
         return (
-          <section key={bloco.titulo} className="bv-section" style={{ opacity: hasAny ? 1 : 0.4 }}>
+          <section key={bloco.titulo} className="bv-section" style={{ opacity: hasAny ? 1 : 0.45 }}>
             <header className="bv-sec-head">
               <h2 className="bv-sec-title">
-                {bloco.emoji} Bloco {idx} · {bloco.titulo}
+                {String(idx).padStart(2, "0")} · {bloco.titulo}
               </h2>
               <span className="bv-sec-counter">{filled}/{bloco.campos.length}</span>
             </header>
@@ -251,89 +245,41 @@ export default function BriefingViewer({
       })}
 
       <p className="bv-foot">
-        ✦ Esse painel atualiza em tempo real via Supabase Realtime. Quando o Matheus clicar &quot;Salvar progresso&quot; ou &quot;Salvar e próximo&quot;, você vê aqui em segundos.
+        Este painel atualiza em tempo real via Supabase Realtime. Quando o Matheus salvar progresso, você vê aqui em segundos.
       </p>
 
       <style>{`
-        .bv-wrap { display: flex; flex-direction: column; gap: 16px; }
+        .bv-wrap { display: flex; flex-direction: column; gap: 12px; }
 
-        .bv-head {
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(200,164,74,0.15);
-          border-radius: 12px;
-          padding: 24px 28px;
-        }
+        .bv-head { background: #fff; border: 1px solid var(--bf-border); padding: 24px 28px; }
         .bv-head-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
-        .bv-slug {
-          font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-          color: var(--gold); margin-bottom: 4px;
-        }
-        .bv-name {
-          font-family: var(--font-bebas), sans-serif;
-          font-size: 28px; letter-spacing: 1.5px;
-          color: var(--white); line-height: 1;
-        }
+        .bv-slug { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bf-gold-deep); margin-bottom: 4px; font-weight: 600; }
+        .bv-name { font-family: var(--font-bebas), sans-serif; font-size: 28px; letter-spacing: 0.04em; color: var(--bf-text); line-height: 1; }
         .bv-tags { display: flex; align-items: center; gap: 10px; }
-        .bv-pulse {
-          font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-          background: rgba(200,164,74,0.15); color: var(--gold);
-          padding: 5px 10px; border-radius: 4px;
-          animation: bvPulse 1s ease-in-out infinite;
-        }
+        .bv-pulse { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; background: var(--bf-bg-soft); color: var(--bf-gold-deep); padding: 5px 10px; animation: bvPulse 1s ease-in-out infinite; }
         @keyframes bvPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .bv-status {
-          font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-          padding: 5px 10px; border-radius: 4px;
-        }
-        .bv-status-done { background: rgba(200,164,74,0.15); color: var(--gold); }
-        .bv-status-draft { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); }
-        .bv-prog-meta { display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
-        .bv-bar { height: 3px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
-        .bv-bar-fill {
-          height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2));
-          transition: width .7s cubic-bezier(.4,0,.2,1);
-        }
+        .bv-status { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 5px 10px; }
+        .bv-status-done { background: var(--bf-bg-soft); color: var(--bf-gold-deep); }
+        .bv-status-draft { background: #f0eadc; color: var(--bf-text-soft); }
+        .bv-prog-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--bf-text-muted); margin-bottom: 8px; }
+        .bv-bar { height: 1px; background: var(--bf-border); overflow: hidden; }
+        .bv-bar-fill { height: 100%; background: var(--bf-gold); transition: width .7s cubic-bezier(.4,0,.2,1); }
 
-        .bv-section {
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.06);
-          border-radius: 12px;
-          padding: 22px 26px;
-        }
+        .bv-section { background: #fff; border: 1px solid var(--bf-border); padding: 22px 26px; }
         .bv-sec-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .bv-sec-title {
-          font-family: var(--font-bebas), sans-serif;
-          font-size: 18px; letter-spacing: 1.5px; color: var(--white);
-        }
-        .bv-sec-counter { font-size: 11px; color: rgba(255,255,255,0.4); font-family: monospace; }
-        .bv-grid {
-          display: grid; grid-template-columns: 1fr 1fr;
-          gap: 12px 24px;
-        }
-        .bv-field {
-          padding-bottom: 10px;
-          border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .bv-field-label {
-          font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-          color: rgba(255,255,255,0.4); margin-bottom: 4px;
-        }
-        .bv-field-value {
-          font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.55;
-          word-break: break-word;
-        }
+        .bv-sec-title { font-family: var(--font-bebas), sans-serif; font-size: 18px; letter-spacing: 0.04em; color: var(--bf-text); }
+        .bv-sec-counter { font-size: 11px; color: var(--bf-text-muted); font-family: monospace; }
+        .bv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+        .bv-field { padding-bottom: 10px; border-bottom: 1px solid var(--bf-border); }
+        .bv-field-label { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--bf-text-muted); margin-bottom: 4px; font-weight: 600; }
+        .bv-field-value { font-size: 13px; color: var(--bf-text); line-height: 1.55; word-break: break-word; }
         @media (max-width: 640px) {
           .bv-grid { grid-template-columns: 1fr; }
           .bv-section { padding: 18px 20px; }
           .bv-head { padding: 20px 22px; }
         }
 
-        .bv-foot {
-          text-align: center;
-          font-size: 11px; letter-spacing: 1px;
-          color: rgba(255,255,255,0.3);
-          padding: 20px 0 0;
-        }
+        .bv-foot { text-align: center; font-size: 11px; letter-spacing: 0.02em; color: var(--bf-text-muted); padding: 20px 0 0; }
       `}</style>
     </div>
   );

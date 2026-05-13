@@ -14,7 +14,8 @@ export default function ObrigadoPage() {
         <div className="ty-mark">✦</div>
         <h1 className="ty-title">Recebido.</h1>
         <p className="ty-sub">
-          O Eduardo foi notificado na hora.<br />
+          O Eduardo foi notificado na hora.
+          <br />
           Em até <strong>7 dias</strong> ele entrega:
         </p>
         <ul className="ty-list">
@@ -26,71 +27,72 @@ export default function ObrigadoPage() {
       </div>
 
       <style>{`
+        :root {
+          --bf-bg: #fafaf6;
+          --bf-bg-soft: #f4efde;
+          --bf-text: #1a1a1a;
+          --bf-text-soft: #525252;
+          --bf-text-muted: #9a958a;
+          --bf-border: #e6e0cf;
+          --bf-gold: #b08a3a;
+          --bf-gold-deep: #8a6d2e;
+        }
         .ty-page {
           min-height: 100vh;
-          background: var(--black);
+          background: var(--bf-bg);
           display: flex; align-items: center; justify-content: center;
           padding: 32px 24px;
-          color: var(--white);
+          color: var(--bf-text);
+          font-family: var(--font-inter), 'Inter', sans-serif;
         }
         .ty-card {
           max-width: 560px; width: 100%;
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(200,164,74,0.15);
-          border-radius: 16px;
-          padding: 64px 40px;
+          background: #fff;
+          border: 1px solid var(--bf-border);
+          padding: 64px 44px;
           text-align: center;
-          box-shadow: 0 0 80px rgba(200,164,74,0.05);
         }
         .ty-mark {
-          font-size: 56px; color: var(--gold);
-          margin-bottom: 24px;
-          filter: drop-shadow(0 0 24px rgba(200,164,74,0.5));
+          font-size: 40px; color: var(--bf-gold);
+          margin-bottom: 28px;
         }
         .ty-title {
           font-family: var(--font-bebas), sans-serif;
-          font-size: 72px; letter-spacing: 2px; line-height: 1;
-          background: linear-gradient(135deg, #fff, #f5ecd4, #c8a44a);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+          font-size: 72px; letter-spacing: 0.02em; line-height: 1;
+          color: var(--bf-text);
           margin-bottom: 28px;
         }
         .ty-sub {
           font-size: 15px; line-height: 1.85;
-          color: rgba(255,255,255,0.55);
+          color: var(--bf-text-soft);
           margin-bottom: 28px;
         }
-        .ty-sub strong { color: var(--gold); }
+        .ty-sub strong { color: var(--bf-gold-deep); }
         .ty-list {
           text-align: left;
           list-style: none; padding: 0; margin: 0 0 36px;
-          display: flex; flex-direction: column; gap: 10px;
+          display: flex; flex-direction: column; gap: 8px;
         }
         .ty-list li {
           font-size: 14px; line-height: 1.7;
-          color: rgba(255,255,255,0.65);
-          padding: 12px 16px;
-          background: rgba(200,164,74,0.04);
-          border-left: 2px solid var(--gold);
-          border-radius: 0 4px 4px 0;
+          color: var(--bf-text-soft);
+          padding: 12px 18px;
+          background: var(--bf-bg-soft);
+          border-left: 2px solid var(--bf-gold);
         }
         .ty-btn {
           display: inline-block;
-          padding: 14px 40px;
-          background: linear-gradient(135deg, var(--gold), var(--gold2));
-          color: var(--black);
-          font-family: var(--font-bebas), sans-serif;
-          font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
-          font-weight: 700;
-          border-radius: 4px;
+          padding: 14px 36px;
+          background: var(--bf-text);
+          color: var(--bf-bg);
+          font-family: var(--font-inter), sans-serif;
+          font-size: 13px; font-weight: 600;
+          letter-spacing: 0.02em;
           text-decoration: none;
-          transition: all .3s;
-          box-shadow: 0 0 40px rgba(200,164,74,0.2);
+          transition: background .2s;
         }
         .ty-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 0 60px rgba(200,164,74,0.5);
+          background: var(--bf-gold-deep);
         }
       `}</style>
     </main>

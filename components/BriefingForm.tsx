@@ -13,6 +13,8 @@ import {
   SUBTITULO_HERO,
   CTA_HERO,
   POSICIONAMENTO_ESTETICO,
+  VISUAL_LP,
+  LOGO_DECISAO,
   ESTILOS,
   CATEGORIAS,
   VOLUME_SEMANAL,
@@ -40,16 +42,16 @@ const BRIEFING_SLUG = "ressil-matheus";
 const TOTAL_STEPS = 10;
 
 const BLOCOS = [
-  { titulo: "Boas-vindas", subtitulo: "Confirmação rápida pra começar", emoji: "✦" },
-  { titulo: "Identidade + Hero", subtitulo: "Como você aparece e o hero da home", emoji: "🎯" },
-  { titulo: "Posicionamento estético", subtitulo: "Cult-modern, tradicional ou híbrido", emoji: "🎨" },
-  { titulo: "Estilos + Categorias", subtitulo: "Quais entrega + substitui '+30 categorias'", emoji: "📐" },
-  { titulo: "Portfolio", subtitulo: "Histórico das 15 peças + galeria", emoji: "🖼" },
-  { titulo: "Modelo de entrega", subtitulo: "Volume, formatos, Drive, VIP", emoji: "📦" },
-  { titulo: "Preço", subtitulo: "Estratégia comercial", emoji: "💰" },
-  { titulo: "Prova social + Lançamento", subtitulo: "Depoimentos + Palmas + correções", emoji: "🚀" },
-  { titulo: "Tamanho da oportunidade", subtitulo: "Dados reais de mercado · BR + Palmas", emoji: "📊" },
-  { titulo: "Co-criação", subtitulo: "Sua hora de propor · não só responder", emoji: "💎" },
+  { titulo: "Boas-vindas", subtitulo: "Confirmação rápida pra começar" },
+  { titulo: "Identidade + Hero", subtitulo: "Como você aparece e o hero da home" },
+  { titulo: "Posicionamento estético", subtitulo: "Cult-modern, tradicional, visual, logo" },
+  { titulo: "Estilos + Categorias", subtitulo: "Quais entrega + substitui '+30 categorias'" },
+  { titulo: "Portfolio", subtitulo: "Histórico das 15 peças + galeria" },
+  { titulo: "Modelo de entrega", subtitulo: "Volume, formatos, Drive, VIP" },
+  { titulo: "Preço", subtitulo: "Estratégia comercial" },
+  { titulo: "Prova social + Lançamento", subtitulo: "Depoimentos + Palmas + correções" },
+  { titulo: "Tamanho da oportunidade", subtitulo: "Dados reais de mercado · BR + Palmas" },
+  { titulo: "Co-criação", subtitulo: "Sua hora de propor · não só responder" },
 ] as const;
 
 type SaveState = "idle" | "saving" | "saved" | "error";
@@ -64,7 +66,6 @@ export default function BriefingForm() {
   const [loaded, setLoaded] = useState(false);
   const lastHash = useRef<string>("");
 
-  // Load: server primeiro, fallback localStorage
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -98,7 +99,6 @@ export default function BriefingForm() {
     };
   }, []);
 
-  // localStorage backup
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ data, step }));
@@ -191,14 +191,10 @@ export default function BriefingForm() {
 
   return (
     <div className="bf-wrap">
-      {/* Header progress */}
       <div className="bf-progress">
         <div className="bf-progress-top">
-          <span className="bf-bloco-tag">
-            <span className="bf-bloco-emoji">{bloco.emoji}</span>
-            {bloco.titulo}
-          </span>
-          <span className="bf-step-counter">{step + 1} de {TOTAL_STEPS}</span>
+          <span className="bf-bloco-tag">{bloco.titulo}</span>
+          <span className="bf-step-counter">{step + 1} / {TOTAL_STEPS}</span>
         </div>
         <div className="bf-bar">
           <div className="bf-bar-fill" style={{ width: `${((step + 1) / TOTAL_STEPS) * 100}%` }} />
@@ -225,17 +221,15 @@ export default function BriefingForm() {
 
       {error && <div className="bf-error">{error}</div>}
 
-      {/* Botão salvar progresso */}
       {loaded && !isLast && (
         <button type="button" onClick={persistDraft} disabled={saveState === "saving"} className="bf-save-btn">
-          {saveState === "saving" && "💾 Salvando…"}
-          {saveState === "saved" && "✅ Salvo no servidor"}
-          {saveState === "error" && "⚠️ Erro · tenta de novo"}
-          {saveState === "idle" && "💾 Salvar progresso deste bloco"}
+          {saveState === "saving" && "Salvando…"}
+          {saveState === "saved" && "✓ Salvo no servidor"}
+          {saveState === "error" && "⚠ Erro · tenta de novo"}
+          {saveState === "idle" && "Salvar progresso deste bloco"}
         </button>
       )}
 
-      {/* Navegação */}
       <div className="bf-nav">
         <button
           type="button"
@@ -248,7 +242,7 @@ export default function BriefingForm() {
 
         {isLast ? (
           <button type="button" onClick={handleSubmit} disabled={submitting} className="bf-btn-submit">
-            {submitting ? "Enviando…" : "✦ Enviar briefing"}
+            {submitting ? "Enviando…" : "Enviar briefing ✦"}
           </button>
         ) : (
           <button type="button" onClick={handleSaveAndNext} disabled={saveState === "saving"} className="bf-btn-next">
@@ -258,92 +252,90 @@ export default function BriefingForm() {
       </div>
 
       <style>{`
-        .bf-wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
+        .bf-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px 96px; }
 
-        /* Progress */
-        .bf-progress { margin-bottom: 40px; padding-top: 8px; }
-        .bf-progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .bf-progress { margin-bottom: 56px; padding-top: 8px; }
+        .bf-progress-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
         .bf-bloco-tag {
-          display: inline-flex; align-items: center; gap: 8px;
-          font-family: var(--font-bebas), sans-serif;
-          font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
-          color: var(--gold);
+          font-family: var(--font-inter), sans-serif;
+          font-size: 13px; font-weight: 600;
+          color: var(--bf-text);
+          letter-spacing: 0.02em;
         }
-        .bf-bloco-emoji { font-size: 18px; }
         .bf-step-counter {
-          font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-          color: rgba(255,255,255,0.35);
+          font-size: 12px; color: var(--bf-text-muted);
+          font-variant-numeric: tabular-nums;
         }
         .bf-bar {
-          height: 2px; background: rgba(200,164,74,0.1); border-radius: 2px;
+          height: 1px; background: var(--bf-border);
           overflow: hidden; margin-bottom: 12px;
         }
         .bf-bar-fill {
-          height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2));
-          transition: width .5s cubic-bezier(.4,0,.2,1);
+          height: 100%; background: var(--bf-gold);
+          transition: width .6s cubic-bezier(.4,0,.2,1);
         }
-        .bf-bloco-sub { font-size: 13px; color: rgba(255,255,255,0.45); }
+        .bf-bloco-sub {
+          font-size: 13px; color: var(--bf-text-soft);
+          font-family: var(--font-playfair), serif;
+          font-style: italic;
+        }
 
-        .bf-loading { text-align: center; color: rgba(255,255,255,0.4); padding: 60px 0; font-size: 14px; }
+        .bf-loading { text-align: center; color: var(--bf-text-muted); padding: 80px 0; font-size: 14px; }
 
-        /* Content */
-        .bf-content { display: flex; flex-direction: column; gap: 28px; }
+        .bf-content { display: flex; flex-direction: column; gap: 40px; }
 
-        /* Error */
         .bf-error {
-          margin-top: 24px; padding: 14px 18px; border-radius: 8px;
-          background: rgba(220,38,38,0.10); border: 1px solid rgba(220,38,38,0.30);
-          color: #ff8080; font-size: 14px;
+          margin-top: 28px; padding: 14px 18px; border-radius: 4px;
+          background: #fff5f5; border: 1px solid #fcc;
+          color: #b00; font-size: 13px;
         }
 
-        /* Save btn */
         .bf-save-btn {
-          width: 100%; margin-top: 32px; padding: 14px;
-          background: rgba(200,164,74,0.06);
-          border: 1px solid rgba(200,164,74,0.25);
-          color: var(--gold);
-          font-family: var(--font-bebas), sans-serif;
-          font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase;
-          border-radius: 4px; cursor: pointer; transition: all .2s;
+          width: 100%; margin-top: 40px; padding: 14px;
+          background: transparent;
+          border: 1px solid var(--bf-border);
+          color: var(--bf-text-soft);
+          font-family: var(--font-inter), sans-serif;
+          font-size: 13px; font-weight: 500;
+          letter-spacing: 0.02em;
+          cursor: pointer; transition: all .2s;
         }
         .bf-save-btn:hover:not(:disabled) {
-          background: rgba(200,164,74,0.12);
-          border-color: rgba(200,164,74,0.5);
+          border-color: var(--bf-gold);
+          color: var(--bf-gold);
         }
-        .bf-save-btn:disabled { opacity: 0.5; }
+        .bf-save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* Nav */
         .bf-nav {
           display: flex; justify-content: space-between; align-items: center; gap: 16px;
-          margin-top: 24px; padding-top: 24px;
-          border-top: 1px solid rgba(255,255,255,0.06);
+          margin-top: 32px; padding-top: 32px;
+          border-top: 1px solid var(--bf-border);
         }
         .bf-btn-back, .bf-btn-next, .bf-btn-submit {
-          font-family: var(--font-bebas), sans-serif;
-          letter-spacing: 2.5px; text-transform: uppercase; font-size: 13px;
-          padding: 14px 28px; border-radius: 4px; cursor: pointer;
+          font-family: var(--font-inter), sans-serif;
+          font-size: 13px; font-weight: 600;
+          letter-spacing: 0.02em;
+          padding: 14px 26px; cursor: pointer;
           transition: all .25s; border: none;
         }
         .bf-btn-back {
-          background: transparent; color: rgba(255,255,255,0.4);
-          border: 1px solid rgba(255,255,255,0.1);
+          background: transparent; color: var(--bf-text-muted);
+          border: 1px solid var(--bf-border);
         }
-        .bf-btn-back:hover:not(:disabled) { color: var(--white); border-color: rgba(255,255,255,0.3); }
+        .bf-btn-back:hover:not(:disabled) { color: var(--bf-text); border-color: var(--bf-text-soft); }
         .bf-btn-back:disabled { opacity: 0.3; cursor: not-allowed; }
         .bf-btn-next, .bf-btn-submit {
-          background: linear-gradient(135deg, var(--gold), var(--gold2));
-          color: var(--black); font-weight: 700;
-          box-shadow: 0 0 30px rgba(200,164,74,0.2);
+          background: var(--bf-text);
+          color: var(--bf-bg);
         }
         .bf-btn-next:hover:not(:disabled), .bf-btn-submit:hover:not(:disabled) {
-          transform: translateY(-2px);
-          box-shadow: 0 0 50px rgba(200,164,74,0.4);
+          background: var(--bf-gold-deep);
         }
         .bf-btn-next:disabled, .bf-btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
         @media (max-width: 560px) {
-          .bf-wrap { padding: 0 16px 60px; }
-          .bf-btn-back, .bf-btn-next, .bf-btn-submit { padding: 12px 18px; font-size: 11px; letter-spacing: 2px; }
+          .bf-wrap { padding: 0 18px 64px; }
+          .bf-btn-back, .bf-btn-next, .bf-btn-submit { padding: 12px 18px; font-size: 12px; }
         }
       `}</style>
 
@@ -352,140 +344,142 @@ export default function BriefingForm() {
   );
 }
 
-// =====================================================================
-// SHARED FORM PRIMITIVES
-// =====================================================================
-
 function FormStyles() {
   return (
     <style>{`
-      .bf-q { margin-bottom: 28px; }
+      .bf-q { margin-bottom: 36px; }
       .bf-q-title {
-        font-family: var(--font-bebas), sans-serif;
-        font-size: 18px; letter-spacing: 2px;
-        color: var(--white); margin-bottom: 10px;
-        line-height: 1.3;
+        font-family: var(--font-inter), sans-serif;
+        font-size: 17px; font-weight: 600;
+        color: var(--bf-text);
+        margin-bottom: 10px;
+        line-height: 1.45;
+        letter-spacing: -0.01em;
       }
       .bf-q-hint {
-        font-size: 13px; line-height: 1.7;
-        color: rgba(255,255,255,0.4);
-        margin-bottom: 16px;
+        font-size: 14px; line-height: 1.7;
+        color: var(--bf-text-soft);
+        margin-bottom: 18px;
       }
-      .bf-q-hint strong { color: var(--gold); font-weight: 600; }
-      .bf-q-hint em { color: rgba(232,201,106,0.8); font-style: normal; }
+      .bf-q-hint strong { color: var(--bf-text); font-weight: 600; }
+      .bf-q-hint em {
+        font-family: var(--font-playfair), serif;
+        font-style: italic;
+        color: var(--bf-gold-deep);
+      }
 
-      /* Input/textarea */
       .bf-input, .bf-textarea {
-        width: 100%; padding: 12px 16px;
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 4px;
-        color: var(--white); font-size: 14px;
+        width: 100%; padding: 13px 16px;
+        background: #fff;
+        border: 1px solid var(--bf-border);
+        border-radius: 3px;
+        color: var(--bf-text); font-size: 14px;
         font-family: var(--font-inter), 'Inter', sans-serif;
         transition: border-color .2s;
       }
-      .bf-textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
+      .bf-textarea { min-height: 110px; resize: vertical; line-height: 1.65; }
       .bf-input:focus, .bf-textarea:focus {
-        outline: none; border-color: rgba(200,164,74,0.5);
-        background: rgba(255,255,255,0.05);
+        outline: none; border-color: var(--bf-gold);
       }
-      .bf-input::placeholder, .bf-textarea::placeholder { color: rgba(255,255,255,0.2); }
+      .bf-input::placeholder, .bf-textarea::placeholder { color: var(--bf-text-muted); }
 
-      /* Radio/Checkbox options */
-      .bf-opts { display: flex; flex-direction: column; gap: 8px; }
+      .bf-opts { display: flex; flex-direction: column; gap: 6px; }
       .bf-opt {
-        display: flex; align-items: flex-start; gap: 12px;
-        padding: 14px 16px; border-radius: 6px;
-        background: rgba(255,255,255,0.02);
-        border: 1px solid rgba(255,255,255,0.06);
-        cursor: pointer; transition: all .2s;
+        display: flex; align-items: flex-start; gap: 14px;
+        padding: 14px 16px; border-radius: 3px;
+        background: #fff;
+        border: 1px solid var(--bf-border);
+        cursor: pointer; transition: all .15s;
       }
-      .bf-opt:hover { background: rgba(255,255,255,0.04); border-color: rgba(200,164,74,0.2); }
+      .bf-opt:hover { border-color: var(--bf-gold); background: #fffdf7; }
       .bf-opt.selected {
-        background: rgba(200,164,74,0.08);
-        border-color: rgba(200,164,74,0.5);
+        background: #fffaeb;
+        border-color: var(--bf-gold);
       }
       .bf-opt input[type="radio"], .bf-opt input[type="checkbox"] {
         appearance: none;
         width: 18px; height: 18px; flex-shrink: 0;
-        border: 1.5px solid rgba(200,164,74,0.4);
-        background: transparent;
+        border: 1.5px solid var(--bf-border);
+        background: #fff;
         cursor: pointer; margin: 0; margin-top: 2px;
-        position: relative; transition: all .2s;
+        position: relative; transition: all .15s;
       }
       .bf-opt input[type="radio"] { border-radius: 50%; }
-      .bf-opt input[type="checkbox"] { border-radius: 3px; }
+      .bf-opt input[type="checkbox"] { border-radius: 2px; }
+      .bf-opt:hover input[type="radio"], .bf-opt:hover input[type="checkbox"] { border-color: var(--bf-gold); }
       .bf-opt input[type="radio"]:checked,
       .bf-opt input[type="checkbox"]:checked {
-        background: var(--gold); border-color: var(--gold);
+        background: var(--bf-text); border-color: var(--bf-text);
       }
       .bf-opt input[type="radio"]:checked::after {
         content: ''; position: absolute;
-        inset: 4px; border-radius: 50%; background: var(--black);
+        inset: 4px; border-radius: 50%; background: var(--bf-bg);
       }
       .bf-opt input[type="checkbox"]:checked::after {
         content: '✓'; position: absolute;
         top: 50%; left: 50%; transform: translate(-50%, -50%);
-        color: var(--black); font-size: 12px; font-weight: 700; line-height: 1;
+        color: var(--bf-bg); font-size: 12px; font-weight: 700; line-height: 1;
       }
       .bf-opt-label {
-        flex: 1; font-size: 14px; line-height: 1.55;
-        color: rgba(255,255,255,0.85);
+        flex: 1; font-size: 14px; line-height: 1.6;
+        color: var(--bf-text);
       }
 
-      /* Block subtitle */
       .bf-block-intro {
-        background: rgba(200,164,74,0.04);
-        border-left: 2px solid var(--gold);
-        padding: 14px 18px;
-        font-size: 13px; line-height: 1.7;
-        color: rgba(255,255,255,0.65);
-        margin-bottom: 24px;
-        border-radius: 0 4px 4px 0;
+        background: var(--bf-bg-soft);
+        border-left: 2px solid var(--bf-gold);
+        padding: 18px 22px;
+        font-size: 14px; line-height: 1.75;
+        color: var(--bf-text-soft);
+        margin-bottom: 32px;
       }
-      .bf-block-intro strong { color: var(--gold); }
-      .bf-block-intro em { color: var(--white); font-style: normal; }
+      .bf-block-intro strong { color: var(--bf-text); font-weight: 600; }
+      .bf-block-intro em {
+        font-family: var(--font-playfair), serif;
+        font-style: italic;
+        color: var(--bf-gold-deep);
+      }
 
-      /* Highlight callout */
       .bf-callout {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.06);
-        padding: 16px 20px; border-radius: 6px;
-        font-size: 13px; line-height: 1.7;
-        color: rgba(255,255,255,0.55);
-        margin-bottom: 16px;
+        background: var(--bf-bg-soft);
+        border: 1px solid var(--bf-border);
+        padding: 16px 20px; border-radius: 3px;
+        font-size: 14px; line-height: 1.7;
+        color: var(--bf-text-soft);
+        margin-bottom: 20px;
       }
       .bf-callout-warn {
-        background: rgba(192,57,43,0.06);
-        border-color: rgba(192,57,43,0.25);
+        background: #fff8ec;
+        border-color: #f0d896;
       }
       .bf-callout-warn::before {
-        content: '⚠️'; margin-right: 8px;
+        content: '⚠'; margin-right: 8px; color: #b08a3a;
       }
 
-      /* Data bloco (bloco 8) */
-      .bf-data-section { margin-bottom: 32px; }
+      .bf-data-section { margin-bottom: 36px; }
       .bf-data-h {
-        font-family: var(--font-bebas), sans-serif;
-        font-size: 18px; letter-spacing: 2px; color: var(--gold);
-        margin-bottom: 14px;
+        font-family: var(--font-inter), sans-serif;
+        font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+        color: var(--bf-gold-deep);
+        margin-bottom: 16px;
+        font-weight: 600;
       }
       .bf-data-grid {
-        display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
       }
       .bf-data-card {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.06);
-        padding: 16px; border-radius: 6px;
+        background: #fff;
+        border: 1px solid var(--bf-border);
+        padding: 18px 20px; border-radius: 3px;
       }
       .bf-data-num {
         font-family: var(--font-bebas), sans-serif;
-        font-size: 28px; color: var(--gold); line-height: 1;
-        margin-bottom: 6px;
+        font-size: 32px; color: var(--bf-text); line-height: 1;
+        margin-bottom: 6px; letter-spacing: 0.02em;
       }
       .bf-data-label {
-        font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
-        color: rgba(255,255,255,0.4); line-height: 1.5;
+        font-size: 12px; color: var(--bf-text-soft);
+        line-height: 1.5;
       }
       @media (max-width: 560px) {
         .bf-data-grid { grid-template-columns: 1fr; }
@@ -494,7 +488,6 @@ function FormStyles() {
   );
 }
 
-// Generic helpers
 type SetFn = <K extends keyof BriefingData>(key: K, value: BriefingData[K]) => void;
 type ToggleFn = (key: keyof BriefingData, value: string) => void;
 
@@ -556,8 +549,8 @@ function Bloco0({ data, set }: { data: BriefingData; set: SetFn }) {
         </div>
       </div>
 
-      <p className="bf-q-hint" style={{ marginTop: 24, fontSize: 12, color: "rgba(255,255,255,0.3)", textAlign: "center" }}>
-        ↓ Tudo é salvo automaticamente. Você pode pausar e voltar quando quiser.
+      <p className="bf-q-hint" style={{ marginTop: 28, fontSize: 12, color: "var(--bf-text-muted)", textAlign: "center" }}>
+        Tudo é salvo automaticamente. Você pode pausar e voltar quando quiser.
       </p>
     </>
   );
@@ -665,6 +658,34 @@ function Bloco2Estetica({ data, set }: { data: BriefingData; set: SetFn }) {
         <p className="bf-q-title">Referências de marca</p>
         <p className="bf-q-hint">Tem alguma igreja, marca ou designer que pra você é <em>"isso aqui é onde Criativos do Céu quer chegar"</em>?</p>
         <textarea className="bf-textarea" value={data.referenciasMarca || ""} onChange={(e) => set("referenciasMarca", e.target.value)} placeholder="Ex: Hillsong, Lagoinha Alpha, Bethel, marcas fora de igreja..." />
+      </div>
+
+      <div className="bf-q">
+        <p className="bf-q-title">Visual da LP criativosdoceu.com</p>
+        <p className="bf-q-hint">Hoje a LP tá <strong>dark</strong> (preto + dourado · estética cult-modern noturna). Algumas igrejas Aesthetic preferem o oposto: <strong>fundo claro</strong> (branco/cream + dourado) — mantém o cult-modern mas com vibe mais minimal/galeria. Tu prefere qual?</p>
+        <div className="bf-opts">
+          {VISUAL_LP.map((o) => (
+            <Radio key={o} name="visualLP" value={o} current={data.visualLP} onChange={(v) => set("visualLP", v)} label={o} />
+          ))}
+          <Radio name="visualLP" value="D · Outro" current={data.visualLP} onChange={(v) => set("visualLP", v)} label="D · Outro (me explica abaixo)" />
+        </div>
+        {data.visualLP === "D · Outro" && (
+          <textarea className="bf-textarea" style={{ marginTop: 10 }} value={data.visualLPOutro || ""} onChange={(e) => set("visualLPOutro", e.target.value)} placeholder="Sua visão de visual..." />
+        )}
+      </div>
+
+      <div className="bf-q">
+        <p className="bf-q-title">Logo da marca</p>
+        <p className="bf-q-hint">Hoje usamos o <strong>wordmark "Criativos do Céu"</strong> (Bebas + Playfair italic + dourado) — sem símbolo dedicado. Tu quer manter assim ou criar um logo com símbolo + wordmark?</p>
+        <div className="bf-opts">
+          {LOGO_DECISAO.map((o) => (
+            <Radio key={o} name="logoDecisao" value={o} current={data.logoDecisao} onChange={(v) => set("logoDecisao", v)} label={o} />
+          ))}
+          <Radio name="logoDecisao" value="D · Outro" current={data.logoDecisao} onChange={(v) => set("logoDecisao", v)} label="D · Outro (me explica abaixo)" />
+        </div>
+        {data.logoDecisao === "D · Outro" && (
+          <textarea className="bf-textarea" style={{ marginTop: 10 }} value={data.logoDecisaoOutro || ""} onChange={(e) => set("logoDecisaoOutro", e.target.value)} placeholder="Sua visão de logo..." />
+        )}
       </div>
     </>
   );
@@ -1069,10 +1090,10 @@ function Bloco8Dados({ data, set }: { data: BriefingData; set: SetFn }) {
       <div className="bf-data-section">
         <p className="bf-data-h">Concorrência principal</p>
         <div className="bf-callout">
-          <strong style={{ color: "var(--gold)" }}>KDG PRO</strong> · R$ 197 vitalício · líder · estética gospel tradicional<br />
-          <strong style={{ color: "var(--gold)" }}>Design Santo TCs Master</strong> · R$ 497/ano · premium · só "templates de culto"<br />
-          <strong style={{ color: "var(--gold)" }}>PSD Gospel Top (Marcelo Leão)</strong> · R$ 30/mês · 2 PSDs/dia útil · sem identidade<br />
-          <strong style={{ color: "var(--gold)" }}>Maior Instagram</strong> · @_igrejapost · apenas 3.901 seguidores · janela aberta
+          <strong>KDG PRO</strong> · R$ 197 vitalício · líder · estética gospel tradicional<br />
+          <strong>Design Santo TCs Master</strong> · R$ 497/ano · premium · só "templates de culto"<br />
+          <strong>PSD Gospel Top (Marcelo Leão)</strong> · R$ 30/mês · 2 PSDs/dia útil · sem identidade<br />
+          <strong>Maior Instagram</strong> · @_igrejapost · apenas 3.901 seguidores · janela aberta
         </div>
       </div>
 
@@ -1092,18 +1113,18 @@ function Bloco8Dados({ data, set }: { data: BriefingData; set: SetFn }) {
           <strong>Voluntário</strong> · R$ 0 (mas amador)<br />
           <strong>Freela avulso</strong> · R$ 50-100/peça → R$ 400-800/mês<br />
           <strong>Agência local (TOPO, PMW)</strong> · R$ 1.500-3.000/mês<br />
-          <strong style={{ color: "var(--gold)" }}>Criativos do Céu R$ 37,90 = 10-50x mais barato · com qualidade Base Church</strong>
+          <strong>Criativos do Céu · R$ 37,90 = 10-50x mais barato</strong> · com qualidade Base Church
         </div>
       </div>
 
       <div className="bf-data-section">
         <p className="bf-data-h">Gap competitivo cravado</p>
         <div className="bf-callout">
-          <em>"100% dos concorrentes BR vendem estética gospel tradicional. Ninguém atende a igreja jovem urbana cult-modern — exatamente onde você já opera na Base Church. <strong style={{ color: "var(--gold)" }}>Você é o único player BR com prova social de igreja real nessa estética.</strong>"</em>
+          <em>"100% dos concorrentes BR vendem estética gospel tradicional. Ninguém atende a igreja jovem urbana cult-modern — exatamente onde você já opera na Base Church. <strong>Você é o único player BR com prova social de igreja real nessa estética.</strong>"</em>
         </div>
       </div>
 
-      <div className="bf-q" style={{ marginTop: 32 }}>
+      <div className="bf-q" style={{ marginTop: 40 }}>
         <p className="bf-q-title">Sua reação aos dados</p>
         <p className="bf-q-hint">Olha esses números — algum te surpreende? Algum você acha que está errado? Algum dado que você tem que devíamos adicionar?</p>
         <textarea className="bf-textarea" style={{ minHeight: 140 }} value={data.reacaoDados || ""} onChange={(e) => set("reacaoDados", e.target.value)} placeholder="Pode escrever livre..." />
@@ -1147,9 +1168,9 @@ function Bloco9Cocriacao({ data, set }: { data: BriefingData; set: SetFn }) {
         <textarea className="bf-textarea" style={{ minHeight: 120 }} value={data.remuneracao || ""} onChange={(e) => set("remuneracao", e.target.value)} placeholder="Sua visão..." />
       </div>
 
-      <div className="bf-callout" style={{ marginTop: 32, textAlign: "center", borderColor: "rgba(200,164,74,0.3)", background: "rgba(200,164,74,0.04)" }}>
-        ✦ Quando enviar, eu recebo notificação na hora. Em até 7 dias entrego: plano de negócio reescrito + LP atualizada com suas direções + cronograma de lançamento Palmas com as 10 igrejas-alvo.<br />
-        <strong style={{ color: "var(--gold)" }}>Vamos cravar.</strong>
+      <div className="bf-callout" style={{ marginTop: 36, textAlign: "center" }}>
+        <strong>Quando enviar, o Eduardo recebe notificação na hora.</strong><br />
+        Em até 7 dias entrega: plano de negócio reescrito + LP atualizada com suas direções + cronograma de lançamento Palmas com as 10 igrejas-alvo.
       </div>
     </>
   );

@@ -53,6 +53,18 @@ export const POSICIONAMENTO_ESTETICO = [
   "C · Gospel tradicional — entra direto na briga com KDG/Design Santo",
 ] as const;
 
+export const VISUAL_LP = [
+  "A · Manter o atual — dark cult-modern (preto + dourado + tipografia limpa)",
+  "B · Testar versão clara — branco/cream + dourado + tipografia limpa (mantém cult-modern, troca o fundo)",
+  "C · Apresentar as 2 versões pro mercado e ver qual converte mais (A/B)",
+] as const;
+
+export const LOGO_DECISAO = [
+  "A · Manter o wordmark atual — 'Criativos do Céu' (Bebas + Playfair italic + dourado)",
+  "B · Criar logo dedicado — símbolo + wordmark (eu desenho)",
+  "C · Criar logo dedicado — quero que o time da Impulso ajude no conceito",
+] as const;
+
 export const ESTILOS = [
   "Cinematográfico",
   "Editorial",
@@ -240,6 +252,10 @@ export const briefingSchema = z.object({
   posicionamentoEstetico: z.string().min(1),
   posicionamentoOutro: z.string().optional(),
   referenciasMarca: z.string().optional(),
+  visualLP: z.string().min(1),
+  visualLPOutro: z.string().optional(),
+  logoDecisao: z.string().min(1),
+  logoDecisaoOutro: z.string().optional(),
 
   // BLOCO 3 · Estilos + Categorias
   estilos: z.array(z.string()).min(1, "Confirma pelo menos 1 estilo"),
@@ -330,6 +346,10 @@ export const briefingDefaults: BriefingData = {
   posicionamentoEstetico: "",
   posicionamentoOutro: "",
   referenciasMarca: "",
+  visualLP: "",
+  visualLPOutro: "",
+  logoDecisao: "",
+  logoDecisaoOutro: "",
 
   estilos: [],
   estiloOutro: "",

@@ -131,6 +131,12 @@ ul { margin: 4px 0 4px 18px; padding: 0; }
   <div class="highlight"><strong>Escolha:</strong> ${escape(d.posicionamentoEstetico)}</div>
   ${d.posicionamentoOutro ? `<div class="card"><strong>Outro:</strong> ${escape(d.posicionamentoOutro)}</div>` : ""}
   ${fmtTextarea("Referências de marca", d.referenciasMarca)}
+  <div class="card"><table>
+    ${fmtRow("Visual da LP", d.visualLP)}
+    ${d.visualLPOutro ? fmtRow("Visual · outro", d.visualLPOutro) : ""}
+    ${fmtRow("Logo da marca", d.logoDecisao)}
+    ${d.logoDecisaoOutro ? fmtRow("Logo · outro", d.logoDecisaoOutro) : ""}
+  </table></div>
 
   <h2>3 · Estilos + Categorias</h2>
   <h3>Estilos confirmados</h3>
