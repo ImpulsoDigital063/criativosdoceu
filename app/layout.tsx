@@ -21,8 +21,9 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Criativos do Céu — New Pack Church Design',
-  description: 'PSDs profissionais para igrejas por Ressil Design. Texturas, LUTs, fundos, ícones e mockups prontos para editar no Photoshop.',
+  title: 'Criativos do Céu',
+  description: 'Em manutenção.',
+  robots: { index: false, follow: false },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
